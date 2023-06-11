@@ -15,12 +15,17 @@ class Home extends BaseController
             'username' => null,
             'email' => 'megaroy123@gmail.com',
             'password' => 'milea0201',
+            'first_name' => 'Anas',
+            'last_name' => 'Paiman',
+            'phone_number' => '089670130349',
+            'gender' => 'm',
+            'birth_date' => "1965-05-12",
+            'full_address' => 'Jalan Nanas 6a, Wage, Taman, Sidoarjo',
+            'avatar' => 'logo.png',
         ]);
         $users->save($user);
 
-        $user = $users->findById($users->getInsertID())->addGroup('admin');
-        dd($user);
-        $users->addToDefaultGroup($user);
+        $users->findById($users->getInsertID())->addGroup('admin')->activate();
 
         return view('welcome_message');
     }
