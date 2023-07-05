@@ -135,7 +135,7 @@ class Auth extends ShieldAuth
     public array $authenticators = [
         'tokens'  => AccessTokens::class,
         'session' => Session::class,
-        // 'jwt'     => JWT::class,
+        'jwt'     => JWT::class,
     ];
 
     /**
@@ -182,7 +182,7 @@ class Auth extends ShieldAuth
     public array $authenticationChain = [
         'session',
         'tokens',
-        // 'jwt',
+        'jwt',
     ];
 
     /**

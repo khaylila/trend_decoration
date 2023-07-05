@@ -2,12 +2,32 @@
 
 namespace App\Controllers;
 
+use App\Models\OwnUserModel;
+use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Shield\Authentication\Authenticators\JWT;
 use CodeIgniter\Shield\Entities\User;
 
 class Home extends BaseController
 {
+    use ResponseTrait;
+
     public function index()
     {
+        // $headerAuthorization = explode(' ', $this->request->getServer("HTTP_AUTHORIZATION"))[1];
+        // $userId = service('jwtmanager')->parse($headerAuthorization)->sub;
+        // var_dump(new User(["id" => $userId]));
+        // var_dump(model(OwnUserModel::class)->find($userId));
+        // $authenticator = auth('jwt')->getAuthenticator();
+        // var_dump($authenticator->attempt(['token' => $headerAuthorization]));
+        // var_dump(auth()->user());
+        // die;
+        // return $this->respond(["success", "turun"], 200);
+
+        // $headerAuthorization = explode(' ', $this->request->getServer("HTTP_AUTHORIZATION"))[1];
+        // var_dump(service('jwtmanager')->parse($headerAuthorization));
+        // var_dump($headerAuthorization);
+        // die;
         // password google
         // frbfpeuczbjmcamt
         // $users = auth()->getProvider();
@@ -27,6 +47,6 @@ class Home extends BaseController
 
         // $users->findById($users->getInsertID())->addGroup('admin')->activate();
 
-        return view('welcome_message');
+        return view('auth/email/sendRegister');
     }
 }

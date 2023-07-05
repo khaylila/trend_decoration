@@ -2,6 +2,10 @@
 
 namespace Config;
 
+use App\Controllers\Auth\LoginController;
+use App\Controllers\Auth\RegisterController;
+use App\Controllers\ProductController;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -29,10 +33,27 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+// service('auth')->routes($routes);
 $routes->get('/', 'Home::index');
 
-service('auth')->routes($routes);
-// $routes->get('login', '\App\Controllers\Auth\LoginController::loginView');
+service('auth')->routes($routes, ['except' => ['login', 'regiter']]);
+// api
+$routes->group('api', static function ($routes) {
+    $routes->post('login', [LoginController::class, 'jwtLogin']);
+
+    $routes->group('seller', static function ($routes) {
+        $routes->post('register', [RegisterController::class, 'registerSeller'], ['filter' => 'jwtgroup-filter:admin']);
+        // product
+        $routes->get('product', [ProductController::class, 'index'], ['filter' => 'jwtgroup-filter:seller']);
+        $routes->get('product/(:num)', [ProductController::class, 'show/$1'], ['filter' => 'jwtgroup-filter:seller']);
+        $routes->post('product', [ProductController::class, 'create'], ['filter' => 'jwtgroup-filter:seller']);
+        $routes->put('product/(:num)', [ProductController::class, 'update/$1'], ['filter' => 'jwtgroup-filter:seller']);
+        $routes->delete('product/(:num)', [ProductController::class, 'delete/$1'], ['filter' => 'jwtgroup-filter:seller']);
+        $routes->delete('product/image/(:num)', [ProductController::class, 'deleteImageProduct/$1'], ['filter' => 'jwtgroup-filter:seller']);
+    });
+});
+
 
 /*
  * --------------------------------------------------------------------

@@ -52,6 +52,10 @@ class AuthGroups extends ShieldAuthGroups
             'title'       => 'Beta User',
             'description' => 'Has access to beta-level features.',
         ],
+        'seller' => [
+            'title'       => 'Seller User',
+            'description' => 'Has access to seller features.',
+        ],
     ];
 
     /**
@@ -65,11 +69,13 @@ class AuthGroups extends ShieldAuthGroups
     public array $permissions = [
         'admin.access'        => 'Can access the sites admin area',
         'admin.settings'      => 'Can access the main site settings',
+        'admin.create-seller' => 'Can create new seller',
         'users.manage-admins' => 'Can manage other admins',
         'users.create'        => 'Can create new non-admin users',
         'users.edit'          => 'Can edit existing non-admin users',
         'users.delete'        => 'Can delete existing non-admin users',
         'beta.access'         => 'Can access beta-level features',
+        'seller.createProduct' => 'Can create product/item',
     ];
 
     /**
@@ -88,10 +94,15 @@ class AuthGroups extends ShieldAuthGroups
         ],
         'admin' => [
             'admin.access',
+            'admin.create-seller',
             'users.create',
             'users.edit',
             'users.delete',
             'beta.access',
+            'seller.*'
+        ],
+        'seller' => [
+            'seller.*',
         ],
         'developer' => [
             'admin.access',

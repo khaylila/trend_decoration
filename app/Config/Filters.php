@@ -8,6 +8,10 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
+use App\Filters\GroupFilter;
+use App\Filters\JWTAuthFilter;
+use App\Filters\JWTGroupFilter;
+use App\Filters\JWTPermissionFilter;
 
 class Filters extends BaseConfig
 {
@@ -21,6 +25,9 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'jwt-filter'    => JWTAuthFilter::class,
+        'jwtgroup-filter'       => JWTGroupFilter::class,
+        'jwtpermission-filter'  => JWTPermissionFilter::class,
     ];
 
     /**
@@ -32,7 +39,7 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
-            'session' => ['except' => ['login*', 'register', 'auth/a/*']],
+            // 'session' => ['except' => ['login*', 'register', 'auth/a/*']],
         ],
         'after' => [
             'toolbar',
@@ -61,5 +68,7 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
-    public array $filters = [];
+    public array $filters = [
+        // 'jwt' => ['before' => ['api', 'api/*']],
+    ];
 }
